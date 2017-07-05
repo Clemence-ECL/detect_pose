@@ -2,8 +2,8 @@ import os
 import random
 
 repartition = ['train']*80+['validation']*20
-folder_train = 'train/'
-folder_validation = 'validation/'
+folder_train = 'data/train/face/'
+folder_validation = 'data/validation/face/'
 
 for element in os.listdir('face'):
   if os.path.isdir(element):

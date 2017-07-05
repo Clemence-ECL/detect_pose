@@ -12,9 +12,9 @@ img_width, img_height = 150, 150
 
 train_data_dir = 'data/train'
 validation_data_dir = 'data/validation'
-nb_train_samples = 2000
-nb_validation_samples = 800
-epochs = 50
+nb_train_samples = 8500
+nb_validation_samples = 2100
+epochs = 30
 batch_size = 16
 
 if K.image_data_format() == 'channels_first':
@@ -26,6 +26,7 @@ model = Sequential()
 model.add(Conv2D(32, (3, 3), input_shape=input_shape))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
 
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
@@ -41,6 +42,7 @@ model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
+
 
 model.compile(loss='binary_crossentropy',
               optimizer='rmsprop',
@@ -76,4 +78,4 @@ model.fit_generator(
     validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size)
 
-model.save_weights('first_try.h5')
+model.save_weights('classify_2_poses.h5')
