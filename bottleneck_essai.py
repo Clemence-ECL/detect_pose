@@ -14,8 +14,8 @@ img_width, img_height = 150, 150
 top_model_weights_path = 'bottleneck_fc_model.h5'
 train_data_dir = 'data/train'
 validation_data_dir = 'data/validation'
-nb_train_samples = 1792
-nb_validation_samples = 416
+nb_train_samples = 3808
+nb_validation_samples = 944
 epochs = 20
 batch_size = 16
 
@@ -59,8 +59,8 @@ def train_top_model():
 
   model = Sequential()
   model.add(Flatten(input_shape=train_data.shape[1:]))
-  model.add(Dense(256, activation='tanh'))
-  model.add(Dropout(0.1))
+  model.add(Dense(256, activation='relu'))
+  model.add(Dropout(0.5))
   model.add(Dense(1, activation='sigmoid'))
 
 
@@ -78,3 +78,25 @@ def train_top_model():
 
 save_bottlebeck_features()
 train_top_model()
+
+
+# def predict_image_class(file):
+#   model = applications.VGG16(include_top=False, weights='imagenet')
+#   x = load_img(file, target_size=(img_width,img_ht))
+#   x = img_to_array(x)
+#   x = np.expand_dims(x, axis=0)
+#   array = model.predict(x)
+#   model = Sequential()
+#   model.add(Flatten(input_shape=array.shape[1:]))
+#   model.add(Dense(256, activation='relu'))
+#   model.add(Dropout(0.5))
+#   model.add(Dense(1, activation='sigmoid'))
+#   model.load_weights(top_model_wt_path)
+#   class_predicted = model.predict_classes(array)
+#   if class_predicted==1:
+#     print("dogs")
+#   else:
+#     print("cat")
+
+
+# predict_image_class(test_dir + "/cat/cat.3120.jpg")
